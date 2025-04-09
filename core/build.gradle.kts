@@ -42,6 +42,10 @@ android {
             buildConfigField("String", "PASS_KEY", "\"$passKey\"")
         }
         debug {
+            isMinifyEnabled = true
+            proguardFiles(
+                "proguard-rules.pro"
+            )
             buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
             buildConfigField("String", "HOST_NAME", "\"$hostName\"")
             buildConfigField("String", "API_KEY", "\"$apiKey\"")

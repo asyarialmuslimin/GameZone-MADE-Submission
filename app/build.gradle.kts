@@ -53,6 +53,12 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
         }
+        debug {
+            isMinifyEnabled = true
+            proguardFiles(
+                "proguard-rules.pro"
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -82,9 +88,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    debugImplementation(libs.leakcanary.android)
-
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.feature.delivery.ktx)
+
+    debugImplementation(libs.leakcanary.android)
 }

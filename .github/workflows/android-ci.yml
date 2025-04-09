@@ -55,24 +55,15 @@ jobs:
          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> local.properties
          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
 
-      - name: Print local.properties
-        run: cat local.properties
-
       # 5. Run Unit Test
       - name: Run Unit Tests
         run: ./gradlew testDebugUnitTest
 
       # 6. Build RELEASE APK
       - name: Build Release APK
-        run: ./gradlew :app:assembleRelease
+        run: ./gradlew :app:assembleRelease :favourite:assembleRelease
 
-      # 7. List APK Files Log
-      - name: Print APK path
-        run: |
-          echo "🔍 Searching for APK..."
-          find . -type f -name "*.apk"
-
-      # 8. Upload APK sebagai artifact
+      # 7. Upload APK sebagai artifact
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
