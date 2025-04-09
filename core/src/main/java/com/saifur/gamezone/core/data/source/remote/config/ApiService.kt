@@ -1,5 +1,6 @@
 package com.saifur.gamezone.core.data.source.remote.config
 
+
 import com.saifur.gamezone.core.BuildConfig
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -10,7 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiService {
     fun getRetrofit() : Endpoint {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
         val certificatePinner = CertificatePinner.Builder()
             .add(BuildConfig.HOST_NAME, BuildConfig.CERT_PIN)

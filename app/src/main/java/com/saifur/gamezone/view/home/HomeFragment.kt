@@ -1,5 +1,7 @@
 package com.saifur.gamezone.view.home
 
+import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.saifur.gamezone.core.utils.Resource
 import com.saifur.gamezone.databinding.FragmentHomeBinding
 import com.saifur.gamezone.extension.textChanges
@@ -28,6 +31,8 @@ class HomeFragment : Fragment() {
     private val homeViewModel : HomeViewModel by viewModel()
 
     private lateinit var gameListAdapter : GameListAdapter
+
+    private lateinit var rvItemDecoration : RecyclerView.ItemDecoration
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,6 +85,19 @@ class HomeFragment : Fragment() {
             layoutManager = gridLayoutManager
             adapter = gameListAdapter
         }
+
+        rvItemDecoration = object : RecyclerView.ItemDecoration() {
+            val spacing = 4.toPx(requireContext())
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                outRect.set(spacing, spacing, spacing, spacing)
+            }
+        }
+        binding.rvGame.addItemDecoration(rvItemDecoration)
     }
 
     @OptIn(FlowPreview::class)
@@ -107,8 +125,12 @@ class HomeFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        binding.rvGame.removeItemDecoration(rvItemDecoration)
         binding.rvGame.adapter = null
         _binding = null
         super.onDestroyView()
     }
 }
+
+fun Int.toPx(context: Context): Int =
+    (this * context.resources.displayMetrics.density).toInt()
