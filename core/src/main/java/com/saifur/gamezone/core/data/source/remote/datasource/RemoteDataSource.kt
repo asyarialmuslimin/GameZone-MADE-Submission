@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val endpoint : Endpoint) : IRemoteDataSource {
-    private val apiKey = BuildConfig.API_KEY;
+    private val apiKey = BuildConfig.API_KEY
     override fun getAllGames() : Flow<ApiResponse<GameListResponse>> = flow {
         try {
             val response = endpoint.getGames(apiKey)
