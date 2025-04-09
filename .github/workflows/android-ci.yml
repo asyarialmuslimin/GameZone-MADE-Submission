@@ -58,23 +58,23 @@ jobs:
       - name: Print local.properties
         run: cat local.properties
 
-      # 5. Build RELEASE APK
+      # 5. Run Unit Test
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest
+
+      # 6. Build RELEASE APK
       - name: Build Release APK
         run: ./gradlew :app:assembleRelease
 
-      # 6. List APK Files Log
+      # 7. List APK Files Log
       - name: Print APK path
         run: |
           echo "🔍 Searching for APK..."
           find . -type f -name "*.apk"
-
-      # 7. Run Unit Test
-      - name: Run Unit Tests
-        run: ./gradlew testReleaseUnitTest
 
       # 8. Upload APK sebagai artifact
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
-          path: app/build/outputs/apk/release/app-release.apk
+          path: ./app/build/outputs/apk/release/app-release.apk
