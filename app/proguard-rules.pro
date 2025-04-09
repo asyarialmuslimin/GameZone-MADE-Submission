@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep all Kotlin stdlib classes
+-keep class kotlin.** { *; }
+
+# Keep synthetic methods (seperti sort dari CollectionsKt)
+-keepclassmembers class kotlin.collections.CollectionsKt { *; }
+
+# Kadang juga perlu ini
+-dontwarn kotlin.**

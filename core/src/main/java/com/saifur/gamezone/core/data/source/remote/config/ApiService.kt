@@ -10,11 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiService {
     fun getRetrofit() : Endpoint {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) {
-                HttpLoggingInterceptor.Level.BODY
-            } else {
-                HttpLoggingInterceptor.Level.NONE
-            }
+            level = HttpLoggingInterceptor.Level.BODY
         }
         val certificatePinner = CertificatePinner.Builder()
             .add(BuildConfig.HOST_NAME, BuildConfig.CERT_PIN)

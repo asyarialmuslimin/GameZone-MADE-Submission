@@ -1,6 +1,7 @@
 package com.saifur.gamezone.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,9 @@ class HomeFragment : Fragment() {
 
         homeViewModel.games.observe(viewLifecycleOwner) {
             when(it) {
-                is Resource.Error -> {}
+                is Resource.Error -> {
+                    Log.e("ErrorGetGame", it.message.toString())
+                }
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                     binding.rvGame.visibility = View.GONE

@@ -1,5 +1,6 @@
 package com.saifur.gamezone.core.utils
 
+import android.util.Log
 import com.saifur.gamezone.core.data.source.remote.config.ApiResponse
 import kotlinx.coroutines.flow.*
 
@@ -30,6 +31,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
                 }
             }
         } catch (throwable: Throwable) {
+            Log.e("NetworkBoundResource", throwable.toString())
             emitAll(query().map { Resource.Error(throwable.message ?: "Unknown error", it) })
         }
     } else {

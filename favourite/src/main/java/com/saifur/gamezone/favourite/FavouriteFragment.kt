@@ -14,7 +14,7 @@ class FavouriteFragment : Fragment() {
     private var _binding: FragmentFavouriteBinding? = null
     private val binding get() = _binding!!
     private lateinit var favouriteAdapter: FavouriteAdapter
-    private val viewModel : FavouriteViewModel by viewModel()
+    private val viewModel: FavouriteViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -30,7 +30,8 @@ class GameRepository(
             }
             localDataSource.insertGames(gameEntities)
         },
-        shouldFetch = { it.isEmpty() }
+        shouldFetch = { it.isEmpty() },
+
     )
 
     override fun getGameDetail(id:Int): Flow<Resource<GameDetail?>> = networkBoundResource(

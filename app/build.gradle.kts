@@ -13,7 +13,7 @@ if (localPropsFile.exists()) {
     localProps.load(localPropsFile.inputStream())
 }
 
-val keystoreFile = localProps.getProperty("KEYSTORE_FILE")?.let { file(it) }
+val keystoreFile = localProps.getProperty("KEYSTORE_FILE")?.let { rootProject.file(it) }
 val keystorePassword = localProps.getProperty("KEYSTORE_PASSWORD")?.toString()
 val keyStoreAlias = localProps.getProperty("KEY_ALIAS")?.toString()
 val keyStorePassword = localProps.getProperty("KEY_PASSWORD")?.toString()
@@ -39,6 +39,8 @@ android {
                 storePassword = keystorePassword
                 keyAlias = keyStoreAlias
                 keyPassword = keyStorePassword
+            } else {
+                println("${keystoreFile?.absolutePath} KeyStore Not Found")
             }
         }
     }

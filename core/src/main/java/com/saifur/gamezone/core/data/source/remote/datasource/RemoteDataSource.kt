@@ -1,5 +1,6 @@
 package com.saifur.gamezone.core.data.source.remote.datasource
 
+import android.util.Log
 import com.saifur.gamezone.core.BuildConfig
 import com.saifur.gamezone.core.data.source.remote.config.ApiResponse
 import com.saifur.gamezone.core.data.source.remote.config.Endpoint
@@ -21,6 +22,7 @@ class RemoteDataSource(private val endpoint : Endpoint) : IRemoteDataSource {
                 emit(ApiResponse.Empty)
             }
         } catch (e:Exception) {
+            Log.e("RemoteDataSource", e.toString())
             emit(ApiResponse.Error(e.toString()))
         }
     }.flowOn(Dispatchers.IO)
