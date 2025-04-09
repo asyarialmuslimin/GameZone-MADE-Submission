@@ -42,9 +42,13 @@
     <fields>;
  }
 
- -keep class com.saifur.gamezone.core.utils.Resource { *; }
+-keep class com.saifur.gamezone.core.utils.Resource { *; }
 
 -keep interface com.saifur.gamezone.core.utils.FavouriteNavigator { *; }
+
+-keep class com.saifur.gamezone.core.**.Fake* { *; }
+-keep class com.saifur.gamezone.core.data.source.local.entity.GameDetailEntity { *; }
+-keep class com.saifur.gamezone.core.data.source.local.entity.GameListEntity { *; }
 
 -dontwarn java.lang.invoke.StringConcatFactory
 
