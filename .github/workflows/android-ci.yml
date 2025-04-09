@@ -33,6 +33,15 @@ jobs:
           echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > keystore.jks
         shell: bash
 
+      - name: Check if keystore.jks exists
+        run: |
+          if [ -f keystore.jks ]; then
+            echo "Keystore generated successfully!"
+          else
+            echo "Keystore NOT found!"
+            exit 1
+          fi
+
       # 4.5 Generate local.properties
       - name: Generate local.properties
         run: |
@@ -45,6 +54,9 @@ jobs:
          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> local.properties
          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
+
+      - name: Print local.properties
+        run: cat local.properties
 
       # 5. Build RELEASE APK
       - name: Build Release APK
