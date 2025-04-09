@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">GameZone</string>
+    <string name="title_favourite">Favourite</string>
+    <string name="game_image">Game Image</string>
+    <string name="star_icon">Star Icon</string>
+    <string name="release_date">Release Date</string>
+    <string name="last_update">Last Update</string>
+    <string name="developers">Developers</string>
+    <string name="platforms">Platforms</string>
+    <string name="official_website">Official Website</string>
+    <string name="reddit">Reddit</string>
+    <string name="metacritics">Metacritics</string>
+    <string name="search_icon">Search Icon</string>
+    <string name="search_game">Search Game…</string>
+    <string name="clear_button">Clear Button</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="ahmad_saifur_ridlo">Ahmad Saifur Ridlo</string>
+    <string name="android_developer_at_algostudio">Android Developer at Algostudio</string>
+    <string name="saifurridho1208_gmail_com">saifurridho1208@gmail.com</string>
+    <string name="kabupaten_malang">Kabupaten Malang</string>
+    <string name="email_icon">Email Icon</string>
+    <string name="location_icon">Location Icon</string>
+    <string name="home">Home</string>
+    <string name="favourite">Favourite</string>
+    <string name="profile">Profile</string>
+    <string name="module_not_found">Module Not Found</string>
+</resources>
