@@ -27,27 +27,35 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
-      # 4. Build RELEASE APK
+      # 4. Decode Keystore
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_FILE }}" | base64 -d > keystore.jks
+        shell: bash
+
+      # 5. Build RELEASE APK
       - name: Build Release APK
         run: ./gradlew :app:assembleRelease
         env:
+          KEYSTORE_FILE: keystore.jks
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
           RAWG_CERT_PIN: ${{ secrets.RAWG_CERT_PIN }}
           BASE_URL: ${{ secrets.BASE_URL }}
           HOST_NAME: ${{ secrets.HOST_NAME }}
           PASS_KEY: ${{ secrets.PASS_KEY }}
 
-      # 5. Run Unit Test
+      # 6. List APK Files Log
+      - name: List APK Files
+        run: ls -R app/build/outputs/apk/
+
+      # 7. Run Unit Test
       - name: Run Unit Tests
         run: ./gradlew testReleaseUnitTest
-        env:
-          RAWG_API_KEY: ${{ secrets.RAWG_API_KEY }}
-          RAWG_CERT_PIN: ${{ secrets.RAWG_CERT_PIN }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          HOST_NAME: ${{ secrets.HOST_NAME }}
-          PASS_KEY: ${{ secrets.PASS_KEY }}
 
-      # 6. Upload APK sebagai artifact
+      # 8. Upload APK sebagai artifact
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:

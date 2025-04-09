@@ -1,9 +1,22 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
 }
+
+val localProps = Properties()
+val localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localProps.load(localPropsFile.inputStream())
+}
+
+val keystoreFile = localProps.getProperty("KEYSTORE_FILE")?.let { file(it) }
+val keystorePassword = localProps.getProperty("KEYSTORE_PASSWORD")?.toString()
+val keyStoreAlias = localProps.getProperty("KEY_ALIAS")?.toString()
+val keyStorePassword = localProps.getProperty("KEY_PASSWORD")?.toString()
 
 android {
     namespace = "com.saifur.gamezone"
@@ -19,12 +32,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            if (keystoreFile != null && keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = keystorePassword
+                keyAlias = keyStoreAlias
+                keyPassword = keyStorePassword
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
             proguardFiles(
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
